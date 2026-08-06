@@ -183,7 +183,7 @@ button, input, textarea {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(12,11,10,0.3) 0%, rgba(12,11,10,0.75) 60%, var(--bg) 100%),
-    url('https://live.staticflickr.com/7667/29022093694_1a2e18b23b_z.jpg') center/cover no-repeat;
+    url('https://live.staticflickr.com/8547/28345007763_6642e05582_z.jpg') center/cover no-repeat;
   transform: scale(1.05);
   animation: hero-zoom 18s var(--ease) infinite alternate;
 }
@@ -772,55 +772,247 @@ body::after {
 }
 
 
-/* gallery denser — many selected shots */
-.gallery-grid {
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 0.65rem;
+/* ============================================
+   COLLAGE SYSTEM — small photos sprinkled throughout
+   Creative director layout: polaroids, stacks, bands
+   ============================================ */
+
+.polaroid {
+  --r: 0deg;
+  background: #f3ebe0;
+  color: #1a1510;
+  padding: 0.35rem 0.35rem 1.35rem;
+  border-radius: 3px;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.25),
+    0 8px 20px rgba(0,0,0,0.35);
+  transform: rotate(var(--r));
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  flex-shrink: 0;
+  margin: 0;
 }
-.gallery-item {
-  aspect-ratio: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.06);
+  z-index: 5;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.3),
+    0 14px 32px rgba(0,0,0,0.45);
 }
-.gallery-item img {
+.polaroid img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  border-radius: 1px;
+  background: #2a241c;
 }
-.gallery-item:hover img {
-  transform: scale(1.04);
+.polaroid figcaption {
+  font-family: var(--font-serif);
+  font-size: 0.62rem;
+  line-height: 1.2;
+  text-align: center;
+  margin-top: 0.4rem;
+  color: #3d342a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.15rem;
 }
-.gallery-item figcaption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 1.5rem 0.65rem 0.5rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.75));
-  color: #f3ebe0;
-  font-size: 0.72rem;
-  line-height: 1.25;
+.polaroid.sm {
+  width: 112px;
+  height: auto;
 }
-.gallery-item.large {
-  grid-column: span 2;
-  grid-row: span 2;
-  aspect-ratio: auto;
+.polaroid.sm img {
+  width: 104px;
+  height: 88px;
+}
+.polaroid.xs {
+  width: 88px;
+  padding-bottom: 1.1rem;
+}
+.polaroid.xs img {
+  width: 80px;
+  height: 68px;
+}
+.polaroid.xs figcaption { font-size: 0.55rem; }
+
+/* Horizontal collage bands */
+.collage-band {
+  position: relative;
+  padding: 1.75rem 0 2rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 50%, rgba(232, 93, 4, 0.06), transparent 70%);
+}
+.collage-band-b {
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.collage-track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.85rem 1.1rem;
+  width: min(100% - 1.5rem, 960px);
+  margin-inline: auto;
+  padding: 0.5rem 0 0.25rem;
+}
+.collage-track .polaroid:nth-child(odd) { margin-top: 0.65rem; }
+.collage-track .polaroid:nth-child(even) { margin-bottom: 0.85rem; }
+.band-note {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  margin-top: 1.25rem;
+}
+.band-note a {
+  color: var(--ember-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.band-note a:hover { color: var(--cream); }
+
+/* Tradition stacked polaroids */
+.tradition-grid {
+  align-items: center;
+}
+.collage-stack {
+  position: relative;
   min-height: 280px;
+  width: min(100%, 320px);
+  margin-inline: auto;
 }
-.gallery-item.wide {
-  grid-column: span 2;
-  aspect-ratio: 16 / 9;
+.collage-stack .polaroid.stack {
+  position: absolute;
+  width: 140px;
+  padding: 0.4rem 0.4rem 1.4rem;
 }
-@media (max-width: 640px) {
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+.collage-stack .polaroid.stack img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+}
+.collage-stack .s1 { top: 8%; left: 4%; z-index: 1; }
+.collage-stack .s2 { top: 22%; right: 0; left: auto; z-index: 2; }
+.collage-stack .s3 { bottom: 12%; left: 12%; z-index: 3; }
+.collage-stack .s4 { bottom: 0; right: 8%; left: auto; z-index: 4; width: 120px; }
+.collage-stack .s4 img { height: 90px; }
+
+/* Scatter quote zone */
+.scatter {
+  padding: var(--space-xl) 0;
+  position: relative;
+}
+.scatter-inner {
+  position: relative;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+.scatter-quote {
+  position: relative;
+  z-index: 2;
+  max-width: 28rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+  line-height: 1.45;
+  color: var(--cream);
+  font-style: italic;
+  padding: 1.5rem 1.25rem;
+}
+.scatter-quote .qmark {
+  display: block;
+  font-size: 2.5rem;
+  color: var(--ember);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+  font-style: normal;
+}
+.scatter .float {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.95;
+}
+.scatter .f1 { top: 0; left: 2%; }
+.scatter .f2 { top: 8%; right: 4%; }
+.scatter .f3 { bottom: 4%; left: 14%; }
+.scatter .f4 { bottom: 0; right: 12%; }
+.scatter .f5 { top: 42%; left: 0; display: none; }
+@media (min-width: 900px) {
+  .scatter .f5 { display: block; }
+  .scatter-inner { min-height: 260px; }
+}
+
+/* Day cards with small photo headers */
+.day-with-pics .day-card {
+  padding-top: 0;
+  overflow: hidden;
+}
+.day-pic {
+  margin: 0 0 1rem;
+  margin-inline: -1.25rem;
+  margin-top: 0;
+  height: 96px;
+  overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: 1px solid var(--border);
+}
+.day-with-pics .day-card {
+  padding: 0 1.25rem 1.35rem;
+}
+.day-with-pics .day-icon {
+  margin-top: 0.85rem;
+}
+.day-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease);
+}
+.day-card:hover .day-pic img {
+  transform: scale(1.06);
+}
+
+/* Mini filmstrip under details */
+.mini-strip {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+.mini-strip img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.mini-strip img:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* Hide old large single visual if present */
+.tradition-visual { display: none; }
+
+@media (max-width: 768px) {
+  .collage-stack {
+    min-height: 240px;
+    margin-top: 1.5rem;
   }
-  .gallery-item.large,
-  .gallery-item.wide {
-    grid-column: span 2;
-    grid-row: span 1;
-    min-height: 200px;
-    aspect-ratio: 16 / 10;
-  }
+  .scatter .f1, .scatter .f2 { width: 96px; }
+  .scatter .f3, .scatter .f4 { width: 80px; }
+  .polaroid.sm { width: 96px; }
+  .polaroid.sm img { width: 88px; height: 76px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .polaroid:hover { transform: rotate(var(--r)); }
+  .hero-bg { animation: none; }
 }
