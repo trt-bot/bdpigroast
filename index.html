@@ -344,7 +344,7 @@
           <div id="rsvp" class="rsvp-card">
             <h3>Want in?</h3>
             <p>This is a private annual gathering. If you've been before or want to be on the list, drop a note.</p>
-            <form class="rsvp-form" action="mailto:tom@blackdiamond.farm" method="get" enctype="text/plain">
+            <form class="rsvp-form" action="#" method="post" novalidate>
               <div class="form-row">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required placeholder="Your name" autocomplete="name">
@@ -359,7 +359,8 @@
               </div>
               <button type="submit" class="btn btn-primary full">Request Invite</button>
             </form>
-            <p class="form-note">Or email <a href="mailto:tom@blackdiamond.farm">tom@blackdiamond.farm</a></p>
+            <p class="form-note" id="rsvp-status" hidden></p>
+            <p class="form-note">Opens your email app to <a href="mailto:tom@blackdiamond.farm">tom@blackdiamond.farm</a> — nothing is sent through this website.</p>
           </div>
         </div>
       </div>

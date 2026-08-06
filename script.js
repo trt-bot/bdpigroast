@@ -47,18 +47,37 @@ document.addEventListener('DOMContentLoaded', () => {
     item.style.transitionDelay = `${i * 0.06}s`;
   });
 
-  // Form: build mailto with name, email, headcount
+  // RSVP: open mail client via mailto (no network form submit → no mixed-content warning)
   const form = document.querySelector('.rsvp-form');
   if (form) {
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
       const name = form.name.value.trim();
       const email = form.email.value.trim();
       const people = form.people.value.trim() || '1';
+      if (!name || !email) return;
+
       const subject = encodeURIComponent(`Epic Pig Roast RSVP — ${name}`);
       const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\nNumber of people: ${people}`
       );
-      form.action = `mailto:tom@blackdiamond.farm?subject=${subject}&body=${body}`;
+      const mailto = `mailto:tom@blackdiamond.farm?subject=${subject}&body=${body}`;
+
+      // Prefer a temporary link click over form action (avoids insecure-form warning)
+      const a = document.createElement('a');
+      a.href = mailto;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      const status = document.getElementById('rsvp-status');
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'If your email app did not open, write tom@blackdiamond.farm with your name, email, and headcount.';
+      }
     });
   }
 });
