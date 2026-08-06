@@ -181,10 +181,14 @@ button, input, textarea {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgba(12,11,10,0.3) 0%, rgba(12,11,10,0.75) 60%, var(--bg) 100%),
-    url('https://live.staticflickr.com/8547/28345007763_6642e05582_z.jpg') center/cover no-repeat;
-  transform: scale(1.05);
+  /* Photo 01 — tractor framed behind the firepit */
+  background-image:
+    linear-gradient(180deg, rgba(12,11,10,0.25) 0%, rgba(12,11,10,0.45) 45%, rgba(12,11,10,0.88) 100%),
+    url('https://live.staticflickr.com/8547/28345007763_6642e05582_z.jpg');
+  background-position: center, 42% 45%;
+  background-size: cover, cover;
+  background-repeat: no-repeat;
+  transform: scale(1.04);
   animation: hero-zoom 18s var(--ease) infinite alternate;
 }
 
@@ -196,7 +200,7 @@ button, input, textarea {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(12,11,10,0.55) 100%);
+  background: radial-gradient(ellipse 90% 70% at 45% 42%, transparent 0%, rgba(12,11,10,0.35) 100%);
   pointer-events: none;
 }
 
