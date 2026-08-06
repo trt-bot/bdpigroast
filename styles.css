@@ -183,7 +183,7 @@ button, input, textarea {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(12,11,10,0.3) 0%, rgba(12,11,10,0.75) 60%, var(--bg) 100%),
-    url('https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+    url('https://live.staticflickr.com/8547/28345007763_6642e05582_z.jpg') center/cover no-repeat;
   transform: scale(1.05);
   animation: hero-zoom 18s var(--ease) infinite alternate;
 }
