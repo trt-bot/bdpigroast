@@ -1,27 +1,24 @@
-# Taranowski's Epic Pig Roast — bdpigroast.com
+# BD Pig Roast — bdpigroast.com
 
-Static site for the annual homestead pig roast in Black Diamond, WA.
+Static site for Taranowski's Epic Pig Roast (Black Diamond, WA).
 
-## Live
+## Edit wording
 
-- **GitHub Pages:** https://trt-bot.github.io/bdpigroast/
-- **Custom domain (after DNS):** https://bdpigroast.com
+**All user-facing text lives in [`content.js`](content.js).**
 
-## Custom domain (Namecheap → GitHub Pages)
+1. Open `content.js`
+2. Change any string under `window.SITE_COPY`
+3. Commit & push — GitHub Pages will redeploy
 
-In Namecheap DNS for `bdpigroast.com`:
+HTML elements use `data-copy="path.to.key"` (text) or `data-copy-html="…"` (HTML).  
+RSVP mailto address, subject, and body templates are also in `content.js` → `rsvp`.
 
-| Type | Host | Value |
-|------|------|-------|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| CNAME | `www` | `trt-bot.github.io` |
+## Stack
 
-Then in repo **Settings → Pages → Custom domain**, set `bdpigroast.com` and enable **Enforce HTTPS** after DNS propagates.
+- `index.html` — structure
+- `content.js` — all copy
+- `styles.css` — design
+- `script.js` — interactions + applies copy on load
+- `CNAME` — bdpigroast.com
 
-## Notes
-
-- Gallery images are Unsplash placeholders; swap with photos from the real [Flickr album](https://www.flickr.com/photos/heathashli/albums/72157634185358075/).
-- RSVP form uses `mailto:hello@bdpigroast.com` (private event).
+Hosted on GitHub Pages (`trt-bot/bdpigroast`).
