@@ -47,19 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
     item.style.transitionDelay = `${i * 0.06}s`;
   });
 
-  // Form: prevent default if no real backend, open mailto cleanly
+  // Form: build mailto with name, email, headcount
   const form = document.querySelector('.rsvp-form');
   if (form) {
-    form.addEventListener('submit', (e) => {
-      // mailto works, but we can enhance the body
+    form.addEventListener('submit', () => {
       const name = form.name.value.trim();
       const email = form.email.value.trim();
-      const note = form.note.value.trim();
+      const people = form.people.value.trim() || '1';
       const subject = encodeURIComponent(`Epic Pig Roast RSVP — ${name}`);
       const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nNote:\n${note || '(none)'}`
+        `Name: ${name}\nEmail: ${email}\nNumber of people: ${people}`
       );
-      form.action = `mailto:hello@bdpigroast.com?subject=${subject}&body=${body}`;
+      form.action = `mailto:tom@blackdiamond.farm?subject=${subject}&body=${body}`;
     });
   }
 });

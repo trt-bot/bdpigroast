@@ -1020,3 +1020,12 @@ body::after {
   .polaroid:hover { transform: rotate(var(--r)); }
   .hero-bg { animation: none; }
 }
+
+.form-row input[type="number"] {
+  -moz-appearance: textfield;
+  max-width: 8rem;
+}
+.form-row input[type="number"]::-webkit-outer-spin-button,
+.form-row input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
+}
